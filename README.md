@@ -44,17 +44,8 @@ Infrastructure:
 
 ## Project Structure
 
-.
-├── dags/
-│   └── weather_etl_pipeline.py
-├── tests/
-├── Dockerfile
-├── requirements.txt
-├── packages.txt
-├── .gitignore
-├── README.md
+.<img width="254" height="231" alt="Screenshot 2025-12-25 at 1 01 47 AM" src="https://github.com/user-attachments/assets/bc150dab-262f-4b2c-bee2-1b608e16860f" />
 
----
 
 ## Database Schema
 
