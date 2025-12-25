@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+
+# Environment variables
+.env
+
+# macOS
+.DS_Store
+
+# Airflow
+airflow.cfg
+airflow.db
+airflow-webserver.pid
+airflow_settings.yaml
+webserver_config.py
+
+# Astro / Airflow runtime
+astro/
+
+# Logs
+*.log
+
+# Docker
+*.pid
+docker-compose.override.yml
+
+# Postgres
+*.sql
