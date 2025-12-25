@@ -1,8 +1,8 @@
 # 🌦️ Weather ETL Pipeline with Airflow, Docker & PostgreSQL
 
-This project implements a production-style ETL pipeline that takes in real-time weather data from WeatherAPI.com, transforms it, then stores it in a PostgreSQL database using Apache Airflow. The entire system is containerized using Docker and orchestrated via the Astro runtime.
+This project implements a production-style ETL pipeline that takes in real-time weather data from WeatherAPI.com, transforms it, then stores it in a PostgreSQL database using Apache Airflow. The entire system is containerized using Docker and orchestrated via the Astro CLI command interface.
 
-This project is designed to demonstrate data engineering skills including ETL design, workflow orchestration, containerization, and database integration that are applicable to areas in Quantitative Finance and Data S
+This project is designed to demonstrate data engineering skills including ETL design, workflow orchestration, containerization, and database integration that are applicable to areas in Quantitative Finance and Data Science
 
 ---
 
