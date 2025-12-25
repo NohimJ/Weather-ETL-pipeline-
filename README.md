@@ -47,19 +47,9 @@ Infrastructure:
 .<img width="254" height="231" alt="Screenshot 2025-12-25 at 1 01 47 AM" src="https://github.com/user-attachments/assets/bc150dab-262f-4b2c-bee2-1b608e16860f" />
 
 
-## Database Schema
+<img width="254" height="265" alt="Screenshot 2025-12-25 at 1 03 03 AM" src="https://github.com/user-attachments/assets/9a7ffcc7-1251-4de9-bdf2-0f2559c31a36" />
 
-CREATE TABLE weather_log (
-    city TEXT,
-    country TEXT,
-    temp_c FLOAT,
-    condition TEXT,
-    humidity INTEGER,
-    wind_kph FLOAT,
-    timestamp TIMESTAMP
-);
 
----
 
 ## How to Run
 
@@ -97,13 +87,8 @@ LIMIT 10;
 
 ---
 
-## Example Output
+<img width="712" height="191" alt="Screenshot 2025-12-25 at 1 03 36 AM" src="https://github.com/user-attachments/assets/50295cb0-06cc-4008-aa85-193e0cfbb30d" />
 
-city       | country | temp_c | condition | humidity | wind_kph | timestamp
------------+---------+--------+-----------+----------+----------+-------------------
-Vancouver  | Canada  | 4.1    | Overcast  | 93       | 3.6      | 2025-12-24 17:15
-
----
 
 ## Key Concepts Demonstrated
 
