@@ -1,45 +1,144 @@
-Overview
-========
+# 🌦️ Weather ETL Pipeline with Airflow, Docker & PostgreSQL
 
-Welcome to Astronomer! This project was generated after you ran 'astro dev init' using the Astronomer CLI. This readme describes the contents of the project, as well as how to run Apache Airflow on your local machine.
+This project implements a production-style ETL pipeline that takes in real-time weather data from WeatherAPI.com, transforms it, then stores it in a PostgreSQL database using Apache Airflow. The entire system is containerized using Docker and orchestrated via the Astro runtime.
 
-Project Contents
-================
+This project is designed to demonstrate data engineering skills including ETL design, workflow orchestration, containerization, and database integration that are applicable to areas in Quantitative Finance and Data S
 
-Your Astro project contains the following files and folders:
+---
 
-- dags: This folder contains the Python files for your Airflow DAGs. By default, this directory includes one example DAG:
-    - `example_astronauts`: This DAG shows a simple ETL pipeline example that queries the list of astronauts currently in space from the Open Notify API and prints a statement for each astronaut. The DAG uses the TaskFlow API to define tasks in Python, and dynamic task mapping to dynamically print a statement for each astronaut. For more on how this DAG works, see our [Getting started tutorial](https://www.astronomer.io/docs/learn/get-started-with-airflow).
-- Dockerfile: This file contains a versioned Astro Runtime Docker image that provides a differentiated Airflow experience. If you want to execute other commands or overrides at runtime, specify them here.
-- include: This folder contains any additional files that you want to include as part of your project. It is empty by default.
-- packages.txt: Install OS-level packages needed for your project by adding them to this file. It is empty by default.
-- requirements.txt: Install Python packages needed for your project by adding them to this file. It is empty by default.
-- plugins: Add custom or community plugins for your project to this file. It is empty by default.
-- airflow_settings.yaml: Use this local-only file to specify Airflow Connections, Variables, and Pools instead of entering them in the Airflow UI as you develop DAGs in this project.
+## Architecture Overview
 
-Deploy Your Project Locally
-===========================
+Extract:
+- Pulls live weather data from a public Weather API using city-based queries
 
-Start Airflow on your local machine by running 'astro dev start'.
+Transform:
+- Cleans and structures raw JSON data
+- Selects relevant metrics such as temperature, humidity, wind speed, and conditions
+- Normalizes timestamps into a database-friendly format
 
-This command will spin up five Docker containers on your machine, each for a different Airflow component:
+Load:
+- Inserts transformed data into a PostgreSQL table (`weather_log`)
+- Automatically creates the table if it does not exist
 
-- Postgres: Airflow's Metadata Database
-- Scheduler: The Airflow component responsible for monitoring and triggering tasks
-- DAG Processor: The Airflow component responsible for parsing DAGs
-- API Server: The Airflow component responsible for serving the Airflow UI and API
-- Triggerer: The Airflow component responsible for triggering deferred tasks
+Orchestration:
+- Apache Airflow DAG manages task dependencies and execution
 
-When all five containers are ready the command will open the browser to the Airflow UI at http://localhost:8080/. You should also be able to access your Postgres Database at 'localhost:5432/postgres' with username 'postgres' and password 'postgres'.
+Infrastructure:
+- Docker containers for Airflow services and PostgreSQL
+- Astro CLI for local development
 
-Note: If you already have either of the above ports allocated, you can either [stop your existing Docker containers or change the port](https://www.astronomer.io/docs/astro/cli/troubleshoot-locally#ports-are-not-available-for-my-local-airflow-webserver).
+---
 
-Deploy Your Project to Astronomer
-=================================
+## Tech Stack
 
-If you have an Astronomer account, pushing code to a Deployment on Astronomer is simple. For deploying instructions, refer to Astronomer documentation: https://www.astronomer.io/docs/astro/deploy-code/
+- Python 3.12
+- Apache Airflow
+- PostgreSQL
+- Docker & Docker Compose
+- Astro CLI
+- Pandas
+- SQLAlchemy
+- psycopg2
 
-Contact
-=======
+---
 
-The Astronomer CLI is maintained with love by the Astronomer team. To report a bug or suggest a change, reach out to our support.
+## Project Structure
+
+.
+├── dags/
+│   └── weather_etl_pipeline.py
+├── tests/
+├── Dockerfile
+├── requirements.txt
+├── packages.txt
+├── .gitignore
+├── README.md
+
+---
+
+## Database Schema
+
+CREATE TABLE weather_log (
+    city TEXT,
+    country TEXT,
+    temp_c FLOAT,
+    condition TEXT,
+    humidity INTEGER,
+    wind_kph FLOAT,
+    timestamp TIMESTAMP
+);
+
+---
+
+## How to Run
+
+1. Clone the repository
+
+2. Start Airflow and PostgreSQL
+
+astro dev start
+
+Airflow UI will be available at:
+http://localhost:8080
+
+---
+
+3. Trigger the DAG
+
+- Open the Airflow UI
+- Enable the `weather_etl_pipeline` DAG
+- Trigger it manually or let it run on its schedule
+
+---
+
+4. View the Data
+
+Connect to PostgreSQL:
+
+psql postgresql://weather_user:password123@localhost:5433/weather_db
+
+Query the data:
+
+SELECT *
+FROM weather_log
+ORDER BY timestamp DESC
+LIMIT 10;
+
+---
+
+## Example Output
+
+city       | country | temp_c | condition | humidity | wind_kph | timestamp
+-----------+---------+--------+-----------+----------+----------+-------------------
+Vancouver  | Canada  | 4.1    | Overcast  | 93       | 3.6      | 2025-12-24 17:15
+
+---
+
+## Key Concepts Demonstrated
+
+- ETL pipeline design
+- Apache Airflow DAG development
+- Task dependency management
+- XCom-safe data passing
+- Containerized data infrastructure
+- PostgreSQL schema management
+- Debugging distributed workflows
+
+---
+
+## Future Improvements
+
+- Historical backfilling
+- Table partitioning by date
+- Data quality checks
+- Integration with Snowflake or BigQuery
+- Cloud deployment (AWS ECS / RDS)
+- dbt integration for transformations
+
+---
+
+## Author
+
+Nohim Jayasinghe  
+Simon Fraser University  
+Data Science
